@@ -1,5 +1,4 @@
 group 'test.task'
-version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 
@@ -7,6 +6,15 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'task.Main'
+    }
+
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
 dependencies {

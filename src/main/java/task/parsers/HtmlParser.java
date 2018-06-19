@@ -80,7 +80,6 @@ public class HtmlParser {
             parent = parent.parent();
         }
 
-        System.out.println(elementTimes.getElement());
         System.out.println(output);
     }
 
