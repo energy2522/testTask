@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class HtmlParser {
+    private static final String EMPTY_STRING = "";
     private static final String ENCODING = "UTF-8";
     private final File ORIGIN_FILE;
     private final File OTHER_FILE;
@@ -38,17 +39,17 @@ public class HtmlParser {
     public void setOtherPageElements() throws IOException {
         Document html = Jsoup.parse(OTHER_FILE, ENCODING, OTHER_FILE.getAbsolutePath());
 
-        html.getAllElements().stream().forEach(e -> otherPageElements.add(new ElementTimes(e)));
+        html.getAllElements().forEach(e -> otherPageElements.add(new ElementTimes(e)));
     }
 
     public void setCountTimes() {
-        otherPageElements.stream().forEach(e -> checkAttr(e));
+        otherPageElements.forEach(this::checkAttr);
 
         Collections.sort(otherPageElements);
     }
 
     private void checkAttr(ElementTimes elementTimes) {
-        listWithAttributes.stream().forEach(e -> {
+        listWithAttributes.forEach(e -> {
             String attr = e.getKey();
             String val = e.getValue();
 
@@ -72,7 +73,10 @@ public class HtmlParser {
 
         while (parent != null) {
             if (output.length() != 0) {
-                output.insert(0, parent.nodeName() + " > ");
+                String idAttr = parent.id().equals(EMPTY_STRING) ? EMPTY_STRING : " #" + parent.id();
+
+                String attrInfo = parent.nodeName() + idAttr + " > ";
+                output.insert(0, attrInfo);
             } else {
                 output.insert(0, parent.nodeName());
             }
