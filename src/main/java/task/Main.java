@@ -8,15 +8,17 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException, NotElementExistingException {
-        if (args.length != 2) {
-            throw new IllegalArgumentException("Please set origin path and other path");
+        if (args.length != 3) {
+            throw new IllegalArgumentException("Please set id, origin path and other path");
         }
 
-        HtmlParser htmlParser = new HtmlParser(args[0], args[1]);
+        HtmlParser htmlParser = new HtmlParser(args[1], args[2]);
 
-        htmlParser.setButtonElements();
+        htmlParser.setElementsById(args[0]);
         htmlParser.setOtherPageElements();
 
         htmlParser.setCountTimes();
+
+        htmlParser.printResult();
     }
 }

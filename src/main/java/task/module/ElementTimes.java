@@ -21,11 +21,6 @@ public class ElementTimes implements Comparable{
         return element;
     }
 
-    public int getTimes() {
-        return times;
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (o instanceof ElementTimes) {
